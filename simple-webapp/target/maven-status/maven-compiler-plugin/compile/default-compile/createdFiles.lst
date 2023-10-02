@@ -1,0 +1,6 @@
+PazienteServlet.class
+Main.class
+HibernateUtil.class
+CreaDatabase.class
+Paziente.class
+PazienteDAO.class

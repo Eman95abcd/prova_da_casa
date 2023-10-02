@@ -1,16 +1,26 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 public class Main {
     public static void main(String[] args) {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:ospedale.db")) {
-            PazienteDAO pazienteDAO = new PazienteDAO(conn);
-            // LocalDate dataDiNascita1 = LocalDate.of(1955, 2, 14);
-            Paziente paz1 = new Paziente(1, "Mario", "Rossi", "Via XX Settembre", "mario.rossi@gmail.com", "1955-02-14", 123456 );
+    
 
-            
-            pazienteDAO.insertPaziente(paz1);
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Paziente entity = new Paziente();
+                entity.setNome("John");
+                entity.setCognome("Smith");
+                entity.setIndirizzo("Via XX Settembre");
+                entity.setEmail("john.smith@google.com");
+                entity.setDataDiNascita("1955-03-14");
+                entity.setTelefono(123456);
+    
+                Transaction transaction = session.beginTransaction();
+                session.persist(entity);
+                transaction.commit();
+
+
+
+
             // System.out.println("Prodotti:");
             // for (Prodotto p : prodotti) {
             //     System.out.println(p.getId() + ": " + p.getNome() + " (" + p.getPrezzo() + ")");
@@ -32,9 +42,5 @@ public class Main {
             // " + a.getIdCliente()
             // + ", Data " + a.getDataAcquisto());
             // }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

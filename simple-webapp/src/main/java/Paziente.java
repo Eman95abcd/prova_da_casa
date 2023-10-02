@@ -1,11 +1,37 @@
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "pazienti")
 public class Paziente {
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Column(name="ID", length=5, nullable=true)
 	private int id;
+
+	@Column(name="NOME", length=20, nullable=true)
 	private String nome;
+
+	@Column(name="COGNOME", length=20, nullable=true)
 	private String cognome;
+
+	@Column(name="INDIRIZZO", length=20, nullable=true)
 	private String indirizzo;
+
+	@Column(name="EMAIL", length=20, nullable=true)
 	private String email;
+
+	@Column(name="DATA_DI_NASCITA", length=20, nullable=true)
 	private String dataDiNascita;
+
+	@Column(name="TELEFONO", length=20, nullable=true)
 	private int telefono;
 	
 	public Paziente(int id, String nome, String cognome, String indirizzo, String email, String dataDiNascita, int telefono){
