@@ -1,0 +1,61 @@
+{
+    // Usare IntelliSense per informazioni sui possibili attributi.
+    // Al passaggio del mouse vengono visualizzate le descrizioni degli attributi esistenti.
+    // Per altre informazioni, visitare: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Carta_Sasso_Forbici",
+            "request": "launch",
+            "mainClass": "Carta_Sasso_Forbici",
+            "projectName": "Java_ca507e6f"
+        },
+        {
+            "type": "java",
+            "name": "Launch Java Program",
+            "request": "launch",
+            "mainClass": ""
+        },
+        {
+            "type": "java",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickJavaProcess}"
+        },
+        {
+            "type": "java",
+            "name": "Attach",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": "<debug port of the debuggee>"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "CreaDatabase",
+            "request": "launch",
+            "mainClass": "CreaDatabase",
+            "projectName": "simple-webapp"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "simple-webapp"
+        },
+        {
+            "type": "java",
+            "name": "PazienteServlet.java",
+            "request": "launch",
+            "mainClass": "PazienteServlet.java",
+            "projectName": "simple-webapp"
+        }
+    ]
+}

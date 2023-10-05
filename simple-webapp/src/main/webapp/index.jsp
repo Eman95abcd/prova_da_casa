@@ -58,7 +58,7 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
               </div>
               <div class="offcanvas-body">
-                <form action="/pazienti" method="post" enctype="multipart/form-data">
+                <form action="/index" method="post" enctype="multipart/form-data">
                   <input type="hidden" value="">
                   <label for="NomeDaInserire">Nome</label>
                   <input type="text" name="NomeDaInserire" id="NomeDaInserire"
@@ -84,7 +84,7 @@
                   <input type="text" name="DataDiNascitaDaInserire" id="DataDiNascitaDaInserire"
                       class="form-control">
                   <br>
-                  <input type="hidden" value="">
+                  <!-- >input type="hidden" value=""> -->
                   <label for="TelefonoDaInserire">Telefono</label>
                   <input type="tel" name="TelefonoDaInserire" id="TelefonoDaInserire"
                       class="form-control">

@@ -12,8 +12,6 @@ public class Paziente {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-	@Column(name="ID", length=5, nullable=true)
 	private int id;
 
 	@Column(name="NOME", length=20, nullable=true)

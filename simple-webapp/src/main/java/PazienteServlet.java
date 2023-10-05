@@ -34,7 +34,10 @@ public class PazienteServlet extends HttpServlet {
         request.setAttribute("pazienti", pazienti);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
+        }
         
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
         String nomeDaInserireDaFrontEnd = request.getParameter("NomeDaInserire");
         String cognomeDaInserireDaFrontEnd = request.getParameter("CognomeDaInserire");
         String indirizzoDaInserireDaFrontEnd = request.getParameter("IndirizzoDaInserire");
@@ -42,11 +45,10 @@ public class PazienteServlet extends HttpServlet {
         String dataDiNascitaDaInserireDaFrontEnd = request.getParameter("DataDiNascitaDaInserire");
         String telefonoDaInserireDaFrontEnd = request.getParameter("TelefonoDaInserire");
 
-        Integer telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
+        int telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        // Create a new Paziente object and set its properties
         Paziente pazienteDaInserire = new Paziente();
-
         pazienteDaInserire.setNome(nomeDaInserireDaFrontEnd);
         pazienteDaInserire.setCognome(cognomeDaInserireDaFrontEnd);
         pazienteDaInserire.setIndirizzo(indirizzoDaInserireDaFrontEnd);
@@ -54,12 +56,22 @@ public class PazienteServlet extends HttpServlet {
         pazienteDaInserire.setDataDiNascita(dataDiNascitaDaInserireDaFrontEnd);
         pazienteDaInserire.setTelefono(telefonoDaInserireDaFrontEndInt);
 
+        // Perform database operations to insert the Paziente object
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.persist(pazienteDaInserire);
-        transaction.commit();
+        
+        try {
+            session.persist(pazienteDaInserire);
+            transaction.commit();
+        } catch (Exception e) {
+            // Handle exceptions, e.g., validation errors or database errors
+            transaction.rollback();
+            // You can add error handling code here
+        } finally {
+            session.close();
+        }
 
-        pazienteDAO.insertPaziente(pazienteDaInserire);
-
-        response.sendRedirect("pazienti");
+        // Redirect to a success page or the index page
+        response.sendRedirect("index"); // Replace "index.jsp" with the appropriate success page
     }
 }

@@ -30,7 +30,7 @@ public class CreaDatabase {
                     "indirizzo TEXT NOT NULL," +
                     "email TEXT NOT NULL," +
                     "data_di_nascita TEXT NOT NULL," +
-                    "telefono REAL NOT NULL" +
+                    "telefono INT NOT NULL" +
                     ");";
                     
             // String sqlCreaTabellaCategorie = "CREATE TABLE IF NOT EXISTS categorie (" +
