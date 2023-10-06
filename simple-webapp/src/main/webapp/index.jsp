@@ -58,7 +58,7 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
               </div>
               <div class="offcanvas-body">
-                <form action="/index" method="post" enctype="multipart/form-data">
+                <form action="/index" method="post" enctype="application/x-www-form-urlencoded">
                   <input type="hidden" value="">
                   <label for="NomeDaInserire">Nome</label>
                   <input type="text" name="NomeDaInserire" id="NomeDaInserire"
@@ -84,7 +84,7 @@
                   <input type="text" name="DataDiNascitaDaInserire" id="DataDiNascitaDaInserire"
                       class="form-control">
                   <br>
-                  <!-- >input type="hidden" value=""> -->
+                  <input type="hidden" value="">
                   <label for="TelefonoDaInserire">Telefono</label>
                   <input type="tel" name="TelefonoDaInserire" id="TelefonoDaInserire"
                       class="form-control">
@@ -95,8 +95,9 @@
             </div>
             
           </div>
+          <div class="d-flex justify-content-evenly flex-wrap align-items-start">
             <c:forEach var="paziente" items="${pazienti}">
-                <div class="d-flex flex-column border border-info border-3 mx-2 p-3">
+                <div class="d-flex flex-column border border-info border-3 mx-2 p-3 mb-4">
                     <h3>ID: ${paziente.id}</h3>
                     <h3>Nome: ${paziente.nome}</h3>
                     <h3>Cognome: ${paziente.cognome}</h3>
@@ -105,8 +106,8 @@
                     <h3>Data di Nascita: ${paziente.dataDiNascita}</h3>
                     <h3>Telefono: ${paziente.telefono}</h3>
                 </div>
-
             </c:forEach>
+          </div>
     
         </div>
       <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> profile </div>

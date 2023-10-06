@@ -45,7 +45,7 @@ public class PazienteServlet extends HttpServlet {
         String dataDiNascitaDaInserireDaFrontEnd = request.getParameter("DataDiNascitaDaInserire");
         String telefonoDaInserireDaFrontEnd = request.getParameter("TelefonoDaInserire");
 
-        int telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
+        Integer telefonoDaInserireDaFrontEndInt = null; //Integer.parseInt(telefonoDaInserireDaFrontEnd);
 
         // Create a new Paziente object and set its properties
         Paziente pazienteDaInserire = new Paziente();

@@ -30,7 +30,7 @@ public class Paziente {
 	private String dataDiNascita;
 
 	@Column(name="TELEFONO", length=20, nullable=true)
-	private int telefono;
+	private Integer telefono;
 	
 	public Paziente(int id, String nome, String cognome, String indirizzo, String email, String dataDiNascita, int telefono){
 		this.id = id;
@@ -83,10 +83,10 @@ public class Paziente {
 	public void setDataDiNascita(String dataDiNascita) {
 		this.dataDiNascita = dataDiNascita;
 	}
-	public int getTelefono() {
+	public Integer getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(int telefono) {
+	public void setTelefono(Integer telefono) {
 		this.telefono = telefono;
 	}
 	

@@ -13,9 +13,18 @@ public class Main {
                 entity.setEmail("john.smith@google.com");
                 entity.setDataDiNascita("1955-03-14");
                 entity.setTelefono(123456);
+
+                Paziente entity2 = new Paziente();
+                entity2.setNome("Mario");
+                entity2.setCognome("Rossi");
+                entity2.setIndirizzo("Corso Torino");
+                entity2.setEmail("mario.rossi@google.com");
+                entity2.setDataDiNascita("1988-08-17");
+                entity2.setTelefono(456789);
     
                 Transaction transaction = session.beginTransaction();
                 session.persist(entity);
+                session.persist(entity2);
                 transaction.commit();
 
 
