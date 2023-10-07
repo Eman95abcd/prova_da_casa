@@ -88,4 +88,48 @@ public class PazienteDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Paziente> getPazientiByFilter(List<Paziente> allPazienti, String ordineEta) {
+
+        List<Paziente> pazientiFiltrati = new ArrayList<>();
+        String sql = "SELECT * FROM pazienti ";
+        
+        if (ordineEta != null && !ordineEta.isEmpty()) {
+            // dal più vecchio al più giovane
+            if (ordineEta.equals("1")) {
+                sql = sql + " ORDER BY data_di_nascita ASC";
+                for (Paziente paziente : pazientiFiltrati) {
+                    System.out.println(paziente);
+                }
+            }
+            // dal più giovane al più vecchio
+            else if (ordineEta.equals("2")) {
+                sql = sql + " ORDER BY data_di_nascita DESC";
+                for (Paziente paziente : pazientiFiltrati) {
+                    System.out.println(paziente);
+                }
+            }
+        }
+                try (
+                    Statement stmt = conn.createStatement();) {
+                ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+
+                    Paziente p = new Paziente();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setCognome(rs.getString("cognome"));
+                    p.setIndirizzo(rs.getString("indirizzo"));
+                    p.setEmail(rs.getString("email"));
+                    p.setDataDiNascita(rs.getString("data_di_nascita"));
+                    p.setTelefono(rs.getInt("telefono"));
+                    pazientiFiltrati.add(p);
+                }
+
+            } catch (SQLException e) {
+                // gestisci l'eccezione
+                e.printStackTrace();
+            }
+            return pazientiFiltrati;
+    }
 }

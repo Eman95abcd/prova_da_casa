@@ -31,6 +31,16 @@ public class PazienteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Paziente> pazienti = pazienteDAO.getAllPazienti();
+
+        // parte aggiunta
+        String ordineEtaDaFrontEnd = request.getParameter("OrdineEta");
+
+        List<Paziente> pazientiFiltrati = pazienteDAO.getPazientiByFilter(pazienti, ordineEtaDaFrontEnd);
+        request.setAttribute("pazienti", pazientiFiltrati);
+        RequestDispatcher dispatcher2 = request.getRequestDispatcher("index.jsp");
+        dispatcher2.forward(request, response);
+        // fine parte aggiunta
+
         request.setAttribute("pazienti", pazienti);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
@@ -44,8 +54,9 @@ public class PazienteServlet extends HttpServlet {
         String emailDaInserireDaFrontEnd = request.getParameter("EmailDaInserire");
         String dataDiNascitaDaInserireDaFrontEnd = request.getParameter("DataDiNascitaDaInserire");
         String telefonoDaInserireDaFrontEnd = request.getParameter("TelefonoDaInserire");
+        
 
-        Integer telefonoDaInserireDaFrontEndInt = null; //Integer.parseInt(telefonoDaInserireDaFrontEnd);
+        Integer telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
 
         // Create a new Paziente object and set its properties
         Paziente pazienteDaInserire = new Paziente();

@@ -50,8 +50,39 @@
     <div class="tab-content">
         <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <div class="text-center my-3">
-            <h2 class="d-inline">Lista Pazienti</h2>
+            <h2 class="d-inline ms-5">Lista Pazienti</h2>
             <button class="ms-2 rounded-5 bg-success text-bg-success position-relative text-uppercase border-0" style="bottom: 5px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">Inserisci</button>
+            <button data-bs-toggle="collapse" data-bs-target="#demo2" class="ms-2 rounded-5 bg-success text-bg-success position-relative text-uppercase border-0" style="bottom: 5px;">Filtra</button>
+              <div id="demo2" class="collapse">
+                
+                  <form action="/index" method="get">
+                      
+              <div class="col-sm-12">
+                  <br>
+                  <!-- qui messo i numeri invece delle stringhe per comodità nei dati per Backend -->
+                  <label for="OrdineEta"><h3 class="me-1">Ordina per:  </h3></label>
+                  <select name="OrdineEta" id="OrdineEta" class="">
+                      <option value="">qualsiasi</option>
+                      <option value="1">Età Decrescente</option>
+                      <option value="2">Età Crescente</option>
+                  </select>
+                  <br><br>
+
+
+
+              </div>
+              <div class="col-sm-4">
+              </div>
+              <div class="col-sm-4 mx-auto">
+                  <input type="submit" class="btn btn-outline-success text-uppercase" value="Applica">
+              </div>
+
+              <div class="col-sm-4">
+
+
+              </div>
+              </form>
+              </div>
             <div class="offcanvas offcanvas-start" id="demo">
               <div class="offcanvas-header">
                 <h1 class="offcanvas-title">Inserisci Paziente</h1>
@@ -89,7 +120,7 @@
                   <input type="tel" name="TelefonoDaInserire" id="TelefonoDaInserire"
                       class="form-control">
                   <br>
-                  <button class="ms-2 rounded-5 bg-success text-bg-success text-uppercase border-0" type="submit">invia</button>
+                  <button class="ms-2 btn btn-outline-success text-uppercase" type="submit">invia</button>
                 </form>
               </div>
             </div>
