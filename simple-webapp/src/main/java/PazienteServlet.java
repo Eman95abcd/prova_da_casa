@@ -32,7 +32,7 @@ public class PazienteServlet extends HttpServlet {
             throws ServletException, IOException {
         List<Paziente> pazienti = pazienteDAO.getAllPazienti();
 
-        // parte aggiunta
+        // parte aggiunta (per filtrare per età)
         String ordineEtaDaFrontEnd = request.getParameter("OrdineEta");
 
         List<Paziente> pazientiFiltrati = pazienteDAO.getPazientiByFilter(pazienti, ordineEtaDaFrontEnd);
@@ -48,6 +48,62 @@ public class PazienteServlet extends HttpServlet {
         
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+       
+
+
+        // PARTE AGGIUNTA (CHE DOVREBBE MODIFICARE IL PAZIENTE)
+        String azioneDaFrontEnd = request.getParameter("azione");
+
+        if ("modifica".equals(azioneDaFrontEnd)) {
+
+
+        int idDaFrontEnd = Integer.parseInt(request.getParameter("idDaModificare"));
+        String nomeDaModificareDaFrontEnd = request.getParameter("NomeDaModificare");
+        String cognomeDaModificareDaFrontEnd = request.getParameter("CognomeDaModificare");
+        String indirizzoDaModificareDaFrontEnd = request.getParameter("IndirizzoDaModificare");
+        String emailDaModificareDaFrontEnd = request.getParameter("EmailDaModificare");
+        String dataDiNascitaDaModificareDaFrontEnd = request.getParameter("DataDiNascitaDaModificare");
+        String telefonoDaModificareDaFrontEnd = request.getParameter("TelefonoDaModificare");
+        Integer telefonoDaModificareDaFrontEndInt = Integer.parseInt(telefonoDaModificareDaFrontEnd);
+
+        Session session2 = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction2 = session2.beginTransaction();
+
+        try {
+            // Retrieve the User entity to update by its primary key (ID)
+            Paziente pazienteDaModificare = session2.get(Paziente.class, idDaFrontEnd);
+
+            if (pazienteDaModificare != null) {
+                // Make changes to the user entity
+                // pazienteDaModificare.setId(idDaFrontEnd);
+                pazienteDaModificare.setNome(nomeDaModificareDaFrontEnd);
+                pazienteDaModificare.setCognome(cognomeDaModificareDaFrontEnd);
+                pazienteDaModificare.setIndirizzo(indirizzoDaModificareDaFrontEnd);
+                pazienteDaModificare.setEmail(emailDaModificareDaFrontEnd);
+                pazienteDaModificare.setDataDiNascita(dataDiNascitaDaModificareDaFrontEnd);
+                pazienteDaModificare.setTelefono(telefonoDaModificareDaFrontEndInt);
+
+
+                // Update the entity in the database
+                session2.update(pazienteDaModificare);
+
+                // Commit the transaction
+                transaction2.commit();
+                System.out.println("User updated successfully.");
+            } else {
+                System.out.println("User not found with ID: " + idDaFrontEnd);
+            }
+        } catch (Exception e) {
+            // Handle exceptions, roll back the transaction if necessary
+            if (transaction2!= null) {
+                transaction2.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            // Close the session and the session factory
+            session2.close();
+        }
+        } else {
         String nomeDaInserireDaFrontEnd = request.getParameter("NomeDaInserire");
         String cognomeDaInserireDaFrontEnd = request.getParameter("CognomeDaInserire");
         String indirizzoDaInserireDaFrontEnd = request.getParameter("IndirizzoDaInserire");
@@ -82,6 +138,17 @@ public class PazienteServlet extends HttpServlet {
             session.close();
         }
 
+
+
+        }
+        //FINE PARTE AGGIUNTA
+        
+
+
+
+
+
+        
         // Redirect to a success page or the index page
         response.sendRedirect("index"); // Replace "index.jsp" with the appropriate success page
     }

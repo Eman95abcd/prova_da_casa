@@ -136,6 +136,55 @@
                     <h3>Email: ${paziente.email}</h3>
                     <h3>Data di Nascita: ${paziente.dataDiNascita}</h3>
                     <h3>Telefono: ${paziente.telefono}</h3>
+                    <!-- Offcanvas Sidebar -->
+                    <div class="offcanvas offcanvas-end" id="demo3">
+                      <div class="offcanvas-header">
+                        <h1 class="offcanvas-title">Modifca Dati</h1>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+                      </div>
+                      <div class="offcanvas-body">
+                        <form action="/index" method="post">
+                          <input type="hidden" name="azione" value="modifica">
+                          <input type="hidden" name="idDaModificare" value="${paziente.id}">
+                          <!--<input type="hidden" name="idDaModificare" id=idDaModificare value="${paziente.id}" > -->
+                          <label for="NomeDaModificare">Nome</label>
+                          <input type="text" name="NomeDaModificare" id="NomeDaModificare"
+                              class="form-control" value="${paziente.nome}">
+                          <br>
+                          <input type="hidden" value="">
+                          <label for="CognomeDaModificare">Cognome</label>
+                          <input type="text" name="CognomeDaModificare" id="CognomeDaModificare"
+                              class="form-control" value="${paziente.cognome}">
+                          <br>
+                          <input type="hidden" value="">
+                          <label for="IndirizzoDaModificare">Indirizzo</label>
+                          <input type="text" name="IndirizzoDaModificare" id="IndirizzoDaModificare"
+                              class="form-control" value="${paziente.indirizzo}">
+                          <br>
+                          <input type="hidden" value="">
+                          <label for="EmailDaModificare">Email</label>
+                          <input type="email" name="EmailDaModificare" id="EmailDaModificare"
+                              class="form-control" value="${paziente.email}">
+                          <br>
+                          <input type="hidden" value="">
+                          <label for="DataDiNascitaDaModificare">Data di nascita (YYYY-MM-DD)</label>
+                          <input type="text" name="DataDiNascitaDaModificare" id="DataDiNascitaDaModificare"
+                              class="form-control" value="${paziente.dataDiNascita}">
+                          <br>
+                          <input type="hidden" value="">
+                          <label for="TelefonoDaModificare">Telefono</label>
+                          <input type="tel" name="TelefonoDaModificare" id="TelefonoDaModificare"
+                              class="form-control" value="${paziente.telefono}">
+                          <br>
+                          <button class="ms-2 btn btn-outline-success text-uppercase" type="submit">invia</button>
+                        </form>
+                      </div>
+                    </div>
+
+                    <!-- Button to open the offcanvas sidebar -->
+                    <button class="ms-2 btn btn-outline-primary text-uppercase" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo3">
+                      modifica
+                    </button>
                 </div>
             </c:forEach>
           </div>
