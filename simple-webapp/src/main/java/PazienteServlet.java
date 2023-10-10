@@ -48,10 +48,10 @@ public class PazienteServlet extends HttpServlet {
         
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-       
 
 
-        // PARTE AGGIUNTA (CHE DOVREBBE MODIFICARE IL PAZIENTE)
+
+        // PARTE CHE MODIFICA IL PAZIENTE
         String azioneDaFrontEnd = request.getParameter("azione");
 
         if ("modifica".equals(azioneDaFrontEnd)) {
@@ -103,7 +103,7 @@ public class PazienteServlet extends HttpServlet {
             // Close the session and the session factory
             session2.close();
         }
-        } else {
+        } else {           //PARTE CHE INSERISCE IL PAZIENTE NUOVO
         String nomeDaInserireDaFrontEnd = request.getParameter("NomeDaInserire");
         String cognomeDaInserireDaFrontEnd = request.getParameter("CognomeDaInserire");
         String indirizzoDaInserireDaFrontEnd = request.getParameter("IndirizzoDaInserire");
@@ -141,13 +141,7 @@ public class PazienteServlet extends HttpServlet {
 
 
         }
-        //FINE PARTE AGGIUNTA
         
-
-
-
-
-
         
         // Redirect to a success page or the index page
         response.sendRedirect("index"); // Replace "index.jsp" with the appropriate success page
