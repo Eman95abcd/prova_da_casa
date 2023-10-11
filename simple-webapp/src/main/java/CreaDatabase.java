@@ -32,6 +32,12 @@ public class CreaDatabase {
                     "data_di_nascita TEXT NOT NULL," +
                     "telefono INT NOT NULL" +
                     ");";
+
+            String sqlCreaTabellaLetti = "CREATE TABLE IF NOT EXISTS letti (" +
+                    "id INTEGER PRIMARY KEY," +
+                    "codice TEXT NOT NULL," +
+                    "unità_operativa TEXT NOT NULL" +
+                    ");";
                     
             // String sqlCreaTabellaCategorie = "CREATE TABLE IF NOT EXISTS categorie (" +
             //         "id INTEGER PRIMARY KEY," +
@@ -49,10 +55,13 @@ public class CreaDatabase {
 
             Statement stmt = conn.createStatement();
             stmt.execute(sqlCreaTabellaPazienti);
+
+             Statement stmt2 = conn.createStatement();
+            stmt2.execute(sqlCreaTabellaLetti);
             // stmt.execute(sqlCreaTabellaCategorie);
             // stmt.execute(sqlCreaTabellaAcquisti);
 
-            System.out.println("Tabella create con successo.");
+            System.out.println("Tabelle create con successo.");
 
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
