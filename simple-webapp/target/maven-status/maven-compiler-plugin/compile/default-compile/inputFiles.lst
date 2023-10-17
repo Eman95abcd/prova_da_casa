@@ -1,7 +1,10 @@
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/CreaDatabase.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/Paziente.java
+/Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/PrenotazioneLetto.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/Main.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/PazienteDAO.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/PazienteServlet.java
+/Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/LettoDAO.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/Letto.java
 /Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/HibernateUtil.java
+/Users/emanuelecappanera/Desktop/ProgettoStage/simple-webapp/src/main/java/LettoServlet.java

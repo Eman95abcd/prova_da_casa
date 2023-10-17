@@ -1,9 +1,14 @@
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +36,14 @@ public class Paziente {
 
 	@Column(name="TELEFONO", length=20, nullable=true)
 	private Integer telefono;
+
+	@ManyToMany
+    @JoinTable(
+        name = "prenotazioni",
+        joinColumns = @JoinColumn(name = "id_paziente"),
+        inverseJoinColumns = @JoinColumn(name = "codice_letto")
+    )
+    private List<PrenotazioneLetto> prenotazioniLetti;
 	
 	public Paziente(int id, String nome, String cognome, String indirizzo, String email, String dataDiNascita, int telefono){
 		this.id = id;

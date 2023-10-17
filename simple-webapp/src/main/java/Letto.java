@@ -1,8 +1,11 @@
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,18 +15,17 @@ public class Letto {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private int id;
+        private int codice;
 
-        @Column(name="CODICE", length=20, nullable=true)
-        private String codice;
-
-        @Column(name="UNITÀ_OPERATIVA", length=20, nullable=true)
+        @Column(name="UNITA_OPERATIVA", length=20, nullable=true)
         private String unitaOperativa;
 
+        @ManyToMany(mappedBy = "prenotazioniLetti")
+        private List<Paziente> pazientiPrenotati;
+    
 
-        public Letto(int id, String codice, String unitaOperativa)
+        public Letto(int codice, String unitaOperativa)
         {
-            this.id = id;
             this.codice = codice;
             this.unitaOperativa = unitaOperativa;
         }
@@ -32,17 +34,10 @@ public class Letto {
         public Letto() {
         }
 
-
-        public int getId() {
-            return id;
-        }
-        public void setId(int id) {
-            this.id = id;
-        }
-        public String getCodice() {
+        public int getCodice() {
             return codice;
         }
-        public void setCodice(String codice) {
+        public void setCodice(int codice) {
             this.codice = codice;
         }
         public String getUnitaOperativa() {

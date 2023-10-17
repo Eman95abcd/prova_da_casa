@@ -34,9 +34,17 @@ public class CreaDatabase {
                     ");";
 
             String sqlCreaTabellaLetti = "CREATE TABLE IF NOT EXISTS letti (" +
+                    "codice INTEGER PRIMARY KEY," +
+                    "unita_operativa TEXT NOT NULL" +
+                    ");";
+
+            String sqlCreaTabellaPrenotazioni = "CREATE TABLE IF NOT EXISTS prenotazioni (" +
                     "id INTEGER PRIMARY KEY," +
-                    "codice TEXT NOT NULL," +
-                    "unità_operativa TEXT NOT NULL" +
+                    "id_paziente INTEGER NOT NULL," +
+                    "codice_Letto INTEGER NOT NULL," +
+                    "data TEXT NOT NULL," +
+                    "FOREIGN KEY (id_paziente) REFERENCES pazienti(id)," +
+                    "FOREIGN KEY (codice_letto) REFERENCES letti(codice)" +
                     ");";
                     
             // String sqlCreaTabellaCategorie = "CREATE TABLE IF NOT EXISTS categorie (" +
@@ -56,8 +64,12 @@ public class CreaDatabase {
             Statement stmt = conn.createStatement();
             stmt.execute(sqlCreaTabellaPazienti);
 
-             Statement stmt2 = conn.createStatement();
+            Statement stmt2 = conn.createStatement();
             stmt2.execute(sqlCreaTabellaLetti);
+
+            Statement stmt3 = conn.createStatement();
+            stmt3.execute(sqlCreaTabellaPrenotazioni);
+
             // stmt.execute(sqlCreaTabellaCategorie);
             // stmt.execute(sqlCreaTabellaAcquisti);
 

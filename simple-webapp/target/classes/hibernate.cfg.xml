@@ -1,4 +1,6 @@
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
 
 <hibernate-configuration>
 
@@ -25,6 +27,14 @@
 
         <!-- Mention annotated entity classes -->
         <mapping class="Paziente" />
+        <mapping class="Letto"/>
+        <mapping class="PrenotazioneLetto" />
+
+         <!-- Definizione delle tabelle secondarie -->
+      <!--   <secondary-table name="pazienti">
+            <primary-key-join-column name="id" />
+        </secondary-table>      -->
 
     </session-factory>
+    
 </hibernate-configuration>

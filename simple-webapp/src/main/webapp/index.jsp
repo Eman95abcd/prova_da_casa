@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page isELIgnored="false" %>
+<label%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<label%@ page isELIgnored="false" %>
 
 <!doctype html>
 <html lang="en">
@@ -188,13 +188,40 @@
                     <button class="ms-2 btn btn-outline-primary text-uppercase" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo3">
                       modifica
                     </button>   -->
+                    <button class="ms-2 btn btn-outline-primary text-uppercase mt-2"data-bs-toggle="collapse" data-bs-target="#demoo2${paziente.id}">Assegna Letto</button>
+
+                    <div id="demoo2${paziente.id}" class="collapse">
+                      <h1 class="text-center mt-2">Assegna Letto</h1>
+                      <form action="/index" method="post">
+                        <input type="hidden" name="azione2" value="assegna">
+                        <input type="hidden" name="codiceLettoDaSelezionare" value="${letto.codice}">
+                        <input type="hidden" name="idDaModificare2" id=idDaModificare2 value="${paziente.id}" >
+                        <label for ="lettoDaSelezionare" class="fw-bold d-block mb-1">Unita' operativa</label>
+                        <select name="lettoDaSelezionare" id="lettoDaSelezionare" class="mb-3">
+                          <option>Neurologia</option>
+                          <option >Cardiologia</option>
+                          <option>Pronto Soccorso</option>
+                          <option>Psichiatria</option>
+                          <option>Chirurgia</option>
+                        </select>
+                        <label class="fw-bold" for="date">Data</label>
+                        <input type="date" id="date" name="dataDaSelezionare">
+                        <input type="hidden" value="">
+                        <button class="btn btn-outline-success text-uppercase" type="submit">Invia</button>
+                      </form>
+                        <br>
+                    </div>
                 </div>
             </c:forEach>
           </div>
     
         </div>
-      <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab"> profile </div>
-      <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab"> messages </div>
+      <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <jsp:include page="letti.jsp" />
+        </div>
+
+      </div>
+      
     </div>
 
   </header>

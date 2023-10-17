@@ -50,100 +50,129 @@ public class PazienteServlet extends HttpServlet {
         throws ServletException, IOException {
 
 
+            String azioneDaFrontEnd = request.getParameter("azione");
+            String azioneDaFrontEnd2 = request.getParameter("azione2");
+
 
         // PARTE CHE MODIFICA IL PAZIENTE
-        String azioneDaFrontEnd = request.getParameter("azione");
 
         if ("modifica".equals(azioneDaFrontEnd)) {
+            int idDaFrontEnd = Integer.parseInt(request.getParameter("idDaModificare"));
+            String nomeDaModificareDaFrontEnd = request.getParameter("NomeDaModificare");
+            String cognomeDaModificareDaFrontEnd = request.getParameter("CognomeDaModificare");
+            String indirizzoDaModificareDaFrontEnd = request.getParameter("IndirizzoDaModificare");
+            String emailDaModificareDaFrontEnd = request.getParameter("EmailDaModificare");
+            String dataDiNascitaDaModificareDaFrontEnd = request.getParameter("DataDiNascitaDaModificare");
+            String telefonoDaModificareDaFrontEnd = request.getParameter("TelefonoDaModificare");
+            Integer telefonoDaModificareDaFrontEndInt = Integer.parseInt(telefonoDaModificareDaFrontEnd);
+
+            Session session2 = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction2 = session2.beginTransaction();
+
+            try {
+                // Retrieve the User entity to update by its primary key (ID)
+                Paziente pazienteDaModificare = session2.get(Paziente.class, idDaFrontEnd);
+
+                if (pazienteDaModificare != null) {
+                    // Make changes to the user entity
+                    // pazienteDaModificare.setId(idDaFrontEnd);
+                    pazienteDaModificare.setNome(nomeDaModificareDaFrontEnd);
+                    pazienteDaModificare.setCognome(cognomeDaModificareDaFrontEnd);
+                    pazienteDaModificare.setIndirizzo(indirizzoDaModificareDaFrontEnd);
+                    pazienteDaModificare.setEmail(emailDaModificareDaFrontEnd);
+                    pazienteDaModificare.setDataDiNascita(dataDiNascitaDaModificareDaFrontEnd);
+                    pazienteDaModificare.setTelefono(telefonoDaModificareDaFrontEndInt);
 
 
-        int idDaFrontEnd = Integer.parseInt(request.getParameter("idDaModificare"));
-        String nomeDaModificareDaFrontEnd = request.getParameter("NomeDaModificare");
-        String cognomeDaModificareDaFrontEnd = request.getParameter("CognomeDaModificare");
-        String indirizzoDaModificareDaFrontEnd = request.getParameter("IndirizzoDaModificare");
-        String emailDaModificareDaFrontEnd = request.getParameter("EmailDaModificare");
-        String dataDiNascitaDaModificareDaFrontEnd = request.getParameter("DataDiNascitaDaModificare");
-        String telefonoDaModificareDaFrontEnd = request.getParameter("TelefonoDaModificare");
-        Integer telefonoDaModificareDaFrontEndInt = Integer.parseInt(telefonoDaModificareDaFrontEnd);
+                    // Update the entity in the database
+                    session2.update(pazienteDaModificare);
 
-        Session session2 = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction2 = session2.beginTransaction();
-
-        try {
-            // Retrieve the User entity to update by its primary key (ID)
-            Paziente pazienteDaModificare = session2.get(Paziente.class, idDaFrontEnd);
-
-            if (pazienteDaModificare != null) {
-                // Make changes to the user entity
-                // pazienteDaModificare.setId(idDaFrontEnd);
-                pazienteDaModificare.setNome(nomeDaModificareDaFrontEnd);
-                pazienteDaModificare.setCognome(cognomeDaModificareDaFrontEnd);
-                pazienteDaModificare.setIndirizzo(indirizzoDaModificareDaFrontEnd);
-                pazienteDaModificare.setEmail(emailDaModificareDaFrontEnd);
-                pazienteDaModificare.setDataDiNascita(dataDiNascitaDaModificareDaFrontEnd);
-                pazienteDaModificare.setTelefono(telefonoDaModificareDaFrontEndInt);
-
-
-                // Update the entity in the database
-                session2.update(pazienteDaModificare);
-
-                // Commit the transaction
-                transaction2.commit();
-                System.out.println("User updated successfully.");
-            } else {
-                System.out.println("User not found with ID: " + idDaFrontEnd);
+                    // Commit the transaction
+                    transaction2.commit();
+                    System.out.println("User updated successfully.");
+                } else {
+                    System.out.println("User not found with ID: " + idDaFrontEnd);
+                }
+            } catch (Exception e) {
+                // Handle exceptions, roll back the transaction if necessary
+                if (transaction2!= null) {
+                    transaction2.rollback();
+                }
+                e.printStackTrace();
+            } finally {
+                // Close the session and the session factory
+                session2.close();
             }
-        } catch (Exception e) {
-            // Handle exceptions, roll back the transaction if necessary
-            if (transaction2!= null) {
-                transaction2.rollback();
-            }
-            e.printStackTrace();
-        } finally {
-            // Close the session and the session factory
-            session2.close();
+            
+        }else if ("assegna".equals(azioneDaFrontEnd2)){      // PARTE ASSEGNANTE IL LETTO
+
+            // Recupera i dati dal form
+        String pazienteId = request.getParameter("idDaModificare2");
+        String lettoDaSelezionare = request.getParameter("lettoDaSelezionare");
+        String dataAssegnazione = request.getParameter("dataDaSelezionare");
+ 
+         // Eseguire la logica per assegnare un paziente a un letto con una data specifica
+        Session session3 = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction3 = session3.beginTransaction();
+ 
+        Paziente paziente = session3.get(Paziente.class, Integer.parseInt(pazienteId));
+        Letto letto = session3.createQuery("FROM Letto l WHERE l.unitaOperativa = :unitaOperativa", Letto.class)
+            .setParameter("unitaOperativa", lettoDaSelezionare)
+            .uniqueResult();
+ 
+         // Verifico se il letto esiste
+        if (letto != null) {
+            PrenotazioneLetto prenotazione = new PrenotazioneLetto();
+            prenotazione.setIdPaziente(paziente);
+            prenotazione.setCodiceLetto(letto);
+            prenotazione.setData(dataAssegnazione);
+            
+
+            session3.persist(prenotazione);
         }
+ 
+        transaction3.commit();
+        session3.close();
+ 
+         // Redirect o invia una risposta
+        
         } else {           //PARTE CHE INSERISCE IL PAZIENTE NUOVO
-        String nomeDaInserireDaFrontEnd = request.getParameter("NomeDaInserire");
-        String cognomeDaInserireDaFrontEnd = request.getParameter("CognomeDaInserire");
-        String indirizzoDaInserireDaFrontEnd = request.getParameter("IndirizzoDaInserire");
-        String emailDaInserireDaFrontEnd = request.getParameter("EmailDaInserire");
-        String dataDiNascitaDaInserireDaFrontEnd = request.getParameter("DataDiNascitaDaInserire");
-        String telefonoDaInserireDaFrontEnd = request.getParameter("TelefonoDaInserire");
-        
+            String nomeDaInserireDaFrontEnd = request.getParameter("NomeDaInserire");
+            String cognomeDaInserireDaFrontEnd = request.getParameter("CognomeDaInserire");
+            String indirizzoDaInserireDaFrontEnd = request.getParameter("IndirizzoDaInserire");
+            String emailDaInserireDaFrontEnd = request.getParameter("EmailDaInserire");
+            String dataDiNascitaDaInserireDaFrontEnd = request.getParameter("DataDiNascitaDaInserire");
+            String telefonoDaInserireDaFrontEnd = request.getParameter("TelefonoDaInserire");
+            
 
-        Integer telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
+            Integer telefonoDaInserireDaFrontEndInt = Integer.parseInt(telefonoDaInserireDaFrontEnd);
 
-        // Create a new Paziente object and set its properties
-        Paziente pazienteDaInserire = new Paziente();
-        pazienteDaInserire.setNome(nomeDaInserireDaFrontEnd);
-        pazienteDaInserire.setCognome(cognomeDaInserireDaFrontEnd);
-        pazienteDaInserire.setIndirizzo(indirizzoDaInserireDaFrontEnd);
-        pazienteDaInserire.setEmail(emailDaInserireDaFrontEnd);
-        pazienteDaInserire.setDataDiNascita(dataDiNascitaDaInserireDaFrontEnd);
-        pazienteDaInserire.setTelefono(telefonoDaInserireDaFrontEndInt);
+            // Create a new Paziente object and set its properties
+            Paziente pazienteDaInserire = new Paziente();
+            pazienteDaInserire.setNome(nomeDaInserireDaFrontEnd);
+            pazienteDaInserire.setCognome(cognomeDaInserireDaFrontEnd);
+            pazienteDaInserire.setIndirizzo(indirizzoDaInserireDaFrontEnd);
+            pazienteDaInserire.setEmail(emailDaInserireDaFrontEnd);
+            pazienteDaInserire.setDataDiNascita(dataDiNascitaDaInserireDaFrontEnd);
+            pazienteDaInserire.setTelefono(telefonoDaInserireDaFrontEndInt);
 
-        // Perform database operations to insert the Paziente object
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        
-        try {
-            session.persist(pazienteDaInserire);
-            transaction.commit();
-        } catch (Exception e) {
-            // Handle exceptions, e.g., validation errors or database errors
-            transaction.rollback();
-            // You can add error handling code here
-        } finally {
-            session.close();
+            // Perform database operations to insert the Paziente object
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+            
+            try {
+                session.persist(pazienteDaInserire);
+                transaction.commit();
+            } catch (Exception e) {
+                // Handle exceptions, e.g., validation errors or database errors
+                transaction.rollback();
+                // You can add error handling code here
+            } finally {
+                session.close();
+            }
+            
         }
-
-
-
-        }
-        
-        
-        // Redirect to a success page or the index page
-        response.sendRedirect("index"); // Replace "index.jsp" with the appropriate success page
+        response.sendRedirect("index");
     }
 }
+
